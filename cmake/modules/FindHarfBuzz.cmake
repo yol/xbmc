@@ -22,7 +22,11 @@ if(NOT TARGET ${APP_NAME_LC}::${CMAKE_FIND_PACKAGE_NAME})
 
   if(${${CMAKE_FIND_PACKAGE_NAME}_SEARCH_NAME}_FOUND)
     if(TARGET harfbuzz::harfbuzz)
-      add_library(${APP_NAME_LC}::${CMAKE_FIND_PACKAGE_NAME} ALIAS harfbuzz::harfbuzz)
+      get_target_property(_HARFBUZZ_ALIASTARGET harfbuzz::harfbuzz ALIASED_TARGET)
+      if(NOT _HARFBUZZ_ALIASTARGET)
+        set(_HARFBUZZ_ALIASTARGET harfbuzz::harfbuzz)
+      endif()
+      add_library(${APP_NAME_LC}::${CMAKE_FIND_PACKAGE_NAME} ALIAS ${_HARFBUZZ_ALIASTARGET})
 
       if(WIN32 OR WINDOWS_STORE)
         # Harfbuzz cmake config has a full path reference to freetype.

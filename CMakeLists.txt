@@ -297,6 +297,17 @@ endforeach()
 core_optional_dep(${optional_deps})
 core_require_dep(${required_deps})
 
+# vcpkg's wrapper intercepts find_package(Curl) before FindCurl.cmake runs,
+# so kodi::Curl may not have been created. Create it now from CURL::libcurl.
+if(NOT TARGET ${APP_NAME_LC}::Curl AND TARGET CURL::libcurl)
+  get_target_property(_curl_real CURL::libcurl ALIASED_TARGET)
+  if(NOT _curl_real)
+    set(_curl_real CURL::libcurl)
+  endif()
+  add_library(${APP_NAME_LC}::Curl ALIAS ${_curl_real})
+  unset(_curl_real)
+endif()
+
 # Check for any libs to be packaged with main app. eg libaacs
 # These libs are not directly linked with main app, but may be used if available from a
 # dependency in the main app. eg libbluray can dyload libaacs for additional features

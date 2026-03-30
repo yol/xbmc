@@ -90,9 +90,10 @@ if(NOT TARGET ${APP_NAME_LC}::${CMAKE_FIND_PACKAGE_NAME})
 
   SETUP_FIND_SPECS()
 
-  find_package(${${CMAKE_FIND_PACKAGE_NAME}_SEARCH_NAME} ${CONFIG_${CMAKE_FIND_PACKAGE_NAME}_FIND_SPEC} CONFIG ${SEARCH_QUIET}
-                                                         HINTS ${DEPENDS_PATH}/lib/cmake
-                                                         ${${CORE_SYSTEM_NAME}_SEARCH_CONFIG})
+  # Use CURL (uppercase) so vcpkg's wrapper locates CURLConfig.cmake correctly
+  find_package(CURL ${CONFIG_${CMAKE_FIND_PACKAGE_NAME}_FIND_SPEC} CONFIG ${SEARCH_QUIET}
+                    HINTS ${DEPENDS_PATH}/lib/cmake
+                    ${${CORE_SYSTEM_NAME}_SEARCH_CONFIG})
 
   # cmake config may not be available (eg Debian libcurl-dev package)
   # fallback to pkgconfig for non windows platforms

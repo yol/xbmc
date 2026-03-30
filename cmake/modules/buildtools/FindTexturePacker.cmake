@@ -82,7 +82,11 @@ if(NOT TARGET TexturePacker::TexturePacker::Executable)
                      "-DCMAKE_OBJDUMP=${CMAKE_OBJDUMP}"
                      "-DCMAKE_RANLIB=${CMAKE_RANLIB}"
                      "-DDEPENDS_PATH=${DEPENDS_PATH}"
-                     -DKODI_SOURCE_DIR=${CMAKE_SOURCE_DIR})
+                     -DKODI_SOURCE_DIR=${CMAKE_SOURCE_DIR}
+                     "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}")
+    string(REPLACE ";" "|" _tp_prefix_path "${CMAKE_PREFIX_PATH}")
+    list(APPEND CMAKE_ARGS "-DCMAKE_PREFIX_PATH=${_tp_prefix_path}")
+    unset(_tp_prefix_path)
 
       # Create a list with an alternate separator e.g. pipe symbol
       string(REPLACE ";" "|" string_ARCH_DEFINES "${ARCH_DEFINES}")

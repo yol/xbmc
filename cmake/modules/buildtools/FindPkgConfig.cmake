@@ -7,8 +7,18 @@
 #   PkgConfig::PkgConfig - The PkgConfig executable
 #   PKG_CONFIG_EXECUTABLE - Non TARGET cache variable of the executable
 
+# If ModuleHelpers is not available (e.g. sub-builds like TexturePacker), fall
+# back to CMake's own FindPkgConfig so we don't break those builds.
+if(NOT EXISTS "${CMAKE_SOURCE_DIR}/cmake/scripts/common/ModuleHelpers.cmake")
+  set(_saved_module_path "${CMAKE_MODULE_PATH}")
+  set(CMAKE_MODULE_PATH "")
+  include(FindPkgConfig)
+  set(CMAKE_MODULE_PATH "${_saved_module_path}")
+  return()
+endif()
+
 if(NOT TARGET PkgConfig::PkgConfig)
-  include(cmake/scripts/common/ModuleHelpers.cmake)
+  include(${CMAKE_SOURCE_DIR}/cmake/scripts/common/ModuleHelpers.cmake)
 
   set(${CMAKE_FIND_PACKAGE_NAME}_MODULE_LC pkgconf)
   set(${${CMAKE_FIND_PACKAGE_NAME}_MODULE_LC}_LIB_TYPE native)

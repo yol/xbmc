@@ -257,9 +257,16 @@ macro(BUILD_DEP_TARGET)
   endif()
 
   if(CMAKE_ARGS)
+    # Use pipe as list separator to safely pass CMAKE_PREFIX_PATH (which is a
+    # CMake list with semicolons) through externalproject_add LIST_SEPARATOR.
+    if(NOT ${${CMAKE_FIND_PACKAGE_NAME}_MODULE}_LIST_SEPARATOR)
+      set(${${CMAKE_FIND_PACKAGE_NAME}_MODULE}_LIST_SEPARATOR LIST_SEPARATOR |)
+    endif()
+    string(REPLACE ";" "|" _cmake_prefix_path_escaped "${CMAKE_PREFIX_PATH}")
     set(CMAKE_ARGS CMAKE_ARGS ${CMAKE_ARGS}
                              -DPROJECTSOURCE=${PROJECTSOURCE}
-                             "-DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}")
+                             "-DCMAKE_PREFIX_PATH=${_cmake_prefix_path_escaped}")
+    unset(_cmake_prefix_path_escaped)
 
     # We dont have a toolchain for windows, so manually add all the cmake
     # build arguments we may want

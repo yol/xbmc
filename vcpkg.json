@@ -1,0 +1,72 @@
+{
+  "name": "kodi",
+  "version-string": "22.0-ALPHA3",
+  "description": "Kodi is an open source media center for playing videos, music, pictures, games, and more.",
+  "homepage": "https://kodi.tv",
+  "dependencies": [
+    {
+      "name": "ffmpeg",
+      "default-features": false,
+      "features": [
+        "aom", "avcodec", "avdevice", "avfilter", "avformat",
+        "bzip2", "freetype", "iconv", "lzma", "mp3lame",
+        "openjpeg", "openmpt", "opus", "snappy", "soxr", "speex",
+        "swresample", "swscale", "theora", "vorbis", "vpx",
+        "webp", "xml2", "zlib",
+        "alsa", "ass", "fontconfig", "fribidi",
+        "dav1d", "srt", "openh264",
+        "gpl", "x264", "x265"
+      ]
+    },
+    "angle",
+    "bzip2",
+    {
+      "name": "curl",
+      "features": ["openssl"]
+    },
+    "exiv2",
+    "flatbuffers",
+    "libflac",
+    "fmt",
+    "fontconfig",
+    "freetype",
+    "fribidi",
+    "giflib",
+    "glew",
+    "libgnutls",
+    "gtest",
+    "lcms",
+    "libass",
+    "libbluray",
+    "libgcrypt",
+    "libgpg-error",
+    "libjpeg-turbo",
+    "libmariadb",
+    "libmicrohttpd",
+    "libogg",
+    "libplist",
+    "libpng",
+    "libunistring",
+    "libuuid",
+    "libvorbis",
+    "libxkbcommon",
+    "libxmu",
+    "libxrandr",
+    "libxslt",
+    "lzo",
+    "nlohmann-json",
+    "openssl",
+    "pcre2",
+    "spdlog",
+    "sqlite3",
+    "taglib",
+    "tiff",
+    "tinyxml",
+    "tinyxml2",
+    {
+      "name": "wayland-protocols",
+      "features": ["force-build"]
+    },
+    "zlib"
+  ]
+}
